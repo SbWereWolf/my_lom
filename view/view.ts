@@ -7,7 +7,7 @@ class $my_lom_view {
 	dom_node() {
 		if ( this._dom_node ) return this._dom_node
 
-		const node = document.createElement( this.dom_name() )
+		const node = $my_lom_dom_context.document.createElement( this.dom_name() )
 
 		for ( const [name, fn] of Object.entries(this.event()) ) {
 			node.addEventListener(name ,fn)
@@ -71,5 +71,16 @@ class $my_lom_view {
 	sub(): Array<$my_lom_view | Node | string | number | boolean> {
 		return []
 	}
+// mam/my/lom/view/view.ts
+	static root: ()=> typeof $my_lom_view
+	static mount() {
+		const node = $my_lom_dom_context.document.querySelector( '#root' )
+		if ( !node ) return
 
+		const View = this.root()
+		const obj = new View
+
+		node.replaceWith( obj.dom_tree() )
+		setInterval( ()=> obj.dom_tree() , 100 )
+	}
 }
