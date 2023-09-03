@@ -12,13 +12,14 @@ jobs:
         runs-on: ubuntu-latest
         
         steps:
-
+            
             - name: Environment Printer
               uses: managedkaos/print-env@v1.0
 
             - name: Build apps
               uses: hyoo-ru/mam_build@master2
               with:
+                  token: ${{ secrets.GH_PAT }}
                   package: my/lom
                   modules: lib
 
